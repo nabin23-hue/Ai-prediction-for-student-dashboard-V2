@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Admin Dashboard</h1>
+        <p>System control panel for managing students, teachers, roles, reports, and risk data</p>
+    </div>
+
+    <div class="nav">
+        <a href="/admin">Admin</a>
+        <a href="/teacher">Teacher View</a>
+        <a href="/tutorial">Tutorial</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/download_class_report">Download Full Report</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="grid">
+        <div class="card"><h2>Total Students</h2><p class="big-number">{{ total_students }}</p></div>
+        <div class="card"><h2>Total Teachers</h2><p class="big-number">{{ teachers|length }}</p></div>
+        <div class="card"><h2>High Risk Students</h2><p class="big-number danger">{{ high_risk }}</p></div>
+        <div class="card"><h2>Average Productivity</h2><p class="big-number">{{ avg_score }}%</p></div>
+    </div>
+
+    <div class="card success">
+        <h2>Admin Control Panel</h2>
+        <p>Admin is an advanced prototype feature for role-based access, database management, and full system monitoring.</p>
+        <p><b>Database:</b> SQLite using Flask-SQLAlchemy</p>
+    </div>
+
+    <div class="card">
+        <h2>Add New Student</h2>
+        <form method="post" action="/admin/add_student">
+            <div class="form-grid">
+                <div><label>Username</label><input type="text" name="username" required></div>
+                <div><label>Password</label><input type="text" name="password" value="123" required></div>
+                <div><label>Full Name</label><input type="text" name="name" required></div>
+                <div><label>Student ID</label><input type="text" name="student_id" required></div>
+                <div><label>Course</label><input type="text" name="course" value="Bachelor of IT" required></div>
+                <div><label>Teacher Name</label><input type="text" name="teacher_name" value="Teacher" required></div>
+                <div><label>Attendance %</label><input type="number" name="attendance" min="0" max="100" value="75"></div>
+                <div><label>Study Hours</label><input type="number" name="study_hours" min="0" max="8" value="2"></div>
+                <div><label>Assignments / 5</label><input type="number" name="assignments" min="0" max="5" value="3"></div>
+                <div><label>Quiz %</label><input type="number" name="quiz" min="0" max="100" value="65"></div>
+                <div><label>LMS Logins</label><input type="number" name="lms_logins" min="0" max="10" value="5"></div>
+                <div><label>Engagement %</label><input type="number" name="engagement" min="0" max="100" value="60"></div>
+                <div><label>Missed Tasks</label><input type="number" name="missed_tasks" min="0" max="10" value="1"></div>
+            </div>
+            <button type="submit">Add Student</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>All Student Records</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Student ID</th>
+                <th>Course</th>
+                <th>Attendance</th>
+                <th>Productivity</th>
+                <th>Risk</th>
+                <th>Grade</th>
+                <th>Actions</th>
+            </tr>
+            {% for s in students %}
+            <tr>
+                <td>{{ s.name }}</td>
+                <td>{{ s.username }}</td>
+                <td>{{ s.student_id }}</td>
+                <td>{{ s.course }}</td>
+                <td>{{ s.attendance }}%</td>
+                <td>{{ s.productivity }}%</td>
+                <td class="risk {{ s.risk|lower }}">{{ s.risk }}</td>
+                <td>{{ s.expected_grade }}</td>
+                <td>
+                    <a class="small-btn" href="/teacher/student/{{ s.username }}">View</a>
+                    <a class="small-btn" href="/admin/edit_student/{{ s.username }}">Edit</a>
+                    <a class="small-btn" href="/download_report/{{ s.username }}">Report</a>
+                    <form class="inline-form" method="post" action="/admin/delete_student/{{ s.username }}" onsubmit="return confirm('Delete this student?');">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

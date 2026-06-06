@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Student Dashboard</h1>
+        <p>Personal productivity, performance prediction, goals, badges, and AI recommendations</p>
+    </div>
+
+    <div class="nav">
+        <a href="/student/{{ student.username }}">Student</a>
+        <a href="/teacher">Teacher View</a>
+        <a href="/tutorial">Tutorial</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="notification {{ student.risk|lower }}">
+        <h2>Notification / Reminder</h2>
+        <p>{{ student.notification }}</p>
+    </div>
+
+    <div class="grid">
+        <div class="card profile-card">
+            <div class="avatar">👨‍🎓</div>
+            <h2>{{ student.name }}</h2>
+            <p><b>ID:</b> {{ student.student_id }}</p>
+            <p><b>Course:</b> {{ student.course }}</p>
+            <p><b>Teacher:</b> {{ student.teacher_name }}</p>
+        </div>
+
+        <div class="card">
+            <h2>Productivity Score</h2>
+            <p class="big-number">{{ student.productivity }}%</p>
+            <div class="bar-bg"><div class="bar-fill" style="width: {{ student.productivity }}%;"></div></div>
+        </div>
+
+        <div class="card">
+            <h2>Risk Level</h2>
+            <p class="risk {{ student.risk|lower }}">{{ student.risk }}</p>
+            <p><b>Expected Grade:</b> {{ student.expected_grade }}</p>
+            <p><b>Pass Probability:</b> {{ student.pass_probability }}%</p>
+        </div>
+
+        <div class="card">
+            <h2>Learning Streak</h2>
+            <p class="big-number">🔥 {{ student.streak }}</p>
+            <p>days active</p>
+            <p><b>Daily Goal:</b> {{ student.daily_goal_done }}/{{ student.daily_goal_total }} tasks</p>
+            <p><b>Weekly Goal:</b> {{ student.weekly_goal_done }}/{{ student.weekly_goal_total }} tasks</p>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <h2>AI Recommendation</h2>
+            <p>{{ student.recommendation }}</p>
+            <h3>Prediction Reason</h3>
+            <p>{{ student.reason }}</p>
+        </div>
+
+        <div class="card">
+            <h2>Badges</h2>
+            {% for badge in badges %}
+                <span class="badge">🏅 {{ badge }}</span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Performance Overview</h2>
+        <p>Attendance: {{ student.attendance }}%</p>
+        <div class="bar-bg"><div class="bar-fill" style="width: {{ student.attendance }}%;"></div></div>
+
+        <p>Quiz Score: {{ student.quiz }}%</p>
+        <div class="bar-bg"><div class="bar-fill" style="width: {{ student.quiz }}%;"></div></div>
+
+        <p>Assignments Completed: {{ student.assignments }}/5</p>
+        <div class="bar-bg"><div class="bar-fill" style="width: {{ student.assignments * 20 }}%;"></div></div>
+
+        <p>LMS Logins: {{ student.lms_logins }} per week</p>
+        <div class="bar-bg"><div class="bar-fill" style="width: {{ student.lms_logins * 10 }}%;"></div></div>
+
+        <p>Engagement Score: {{ student.engagement }}%</p>
+        <div class="bar-bg"><div class="bar-fill" style="width: {{ student.engagement }}%;"></div></div>
+    </div>
+
+    <div class="card chart-box">
+        <h2>Weekly Progress Trend</h2>
+        <canvas id="studentChart"></canvas>
+    </div>
+
+    <form method="post" action="/predict">
+        <div class="card">
+            <h2>Update Student Details and Predict Again</h2>
+            <input type="hidden" name="username" value="{{ student.username }}">
+
+            <div class="form-grid">
+                <div>
+                    <label>Student Name</label>
+                    <input type="text" name="name" value="{{ student.name }}" required>
+                </div>
+                <div>
+                    <label>Student ID</label>
+                    <input type="text" name="student_id" value="{{ student.student_id }}" required>
+                </div>
+                <div>
+                    <label>Course</label>
+                    <input type="text" name="course" value="{{ student.course }}" required>
+                </div>
+                <div>
+                    <label>Attendance %</label>
+                    <input type="number" name="attendance" min="0" max="100" value="{{ student.attendance }}" required>
+                </div>
+                <div>
+                    <label>Study Hours Per Day</label>
+                    <input type="number" name="study_hours" min="0" max="8" value="{{ student.study_hours }}" required>
+                </div>
+                <div>
+                    <label>Assignments Completed / 5</label>
+                    <input type="number" name="assignments" min="0" max="5" value="{{ student.assignments }}" required>
+                </div>
+                <div>
+                    <label>Quiz Score %</label>
+                    <input type="number" name="quiz" min="0" max="100" value="{{ student.quiz }}" required>
+                </div>
+                <div>
+                    <label>LMS Logins Per Week</label>
+                    <input type="number" name="lms_logins" min="0" max="10" value="{{ student.lms_logins }}" required>
+                </div>
+                <div>
+                    <label>Engagement Score %</label>
+                    <input type="number" name="engagement" min="0" max="100" value="{{ student.engagement }}" required>
+                </div>
+                <div>
+                    <label>Missed Tasks</label>
+                    <input type="number" name="missed_tasks" min="0" max="10" value="{{ student.missed_tasks }}" required>
+                </div>
+                <div>
+                    <label>Learning Streak Days</label>
+                    <input type="number" name="streak" min="0" max="365" value="{{ student.streak }}" required>
+                </div>
+                <div>
+                    <label>Daily Goal Completed</label>
+                    <input type="number" name="daily_goal_done" min="0" max="4" value="{{ student.daily_goal_done }}" required>
+                </div>
+                <div>
+                    <label>Weekly Goal Completed</label>
+                    <input type="number" name="weekly_goal_done" min="0" max="12" value="{{ student.weekly_goal_done }}" required>
+                </div>
+            </div>
+
+            <button type="submit">Predict Performance</button>
+        </div>
+    </form>
+
+    <script>
+        const chartData = {{ chart|tojson }};
+        new Chart(document.getElementById('studentChart'), {
+            type: 'line',
+            data: {
+                labels: chartData.labels,
+                datasets: [
+                    { label: 'Attendance', data: chartData.attendance },
+                    { label: 'Assignments', data: chartData.assignments },
+                    { label: 'Study Hours', data: chartData.study },
+                    { label: 'Engagement', data: chartData.engagement }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    </script>
+</body>
+</html>

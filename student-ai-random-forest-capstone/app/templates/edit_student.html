@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Edit Student</h1>
+        <p>Admin can update student information and prediction inputs</p>
+    </div>
+
+    <div class="nav">
+        <a href="/admin">Back to Admin</a>
+        <a href="/teacher/student/{{ student.username }}">View Details</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <form method="post">
+        <div class="card">
+            <h2>{{ student.name }}</h2>
+            <div class="form-grid">
+                <div><label>Name</label><input type="text" name="name" value="{{ student.name }}" required></div>
+                <div><label>Student ID</label><input type="text" name="student_id" value="{{ student.student_id }}" required></div>
+                <div><label>Course</label><input type="text" name="course" value="{{ student.course }}" required></div>
+                <div><label>Teacher Name</label><input type="text" name="teacher_name" value="{{ student.teacher_name }}" required></div>
+                <div><label>Attendance %</label><input type="number" name="attendance" min="0" max="100" value="{{ student.attendance }}" required></div>
+                <div><label>Study Hours</label><input type="number" name="study_hours" min="0" max="8" value="{{ student.study_hours }}" required></div>
+                <div><label>Assignments / 5</label><input type="number" name="assignments" min="0" max="5" value="{{ student.assignments }}" required></div>
+                <div><label>Quiz %</label><input type="number" name="quiz" min="0" max="100" value="{{ student.quiz }}" required></div>
+                <div><label>LMS Logins</label><input type="number" name="lms_logins" min="0" max="10" value="{{ student.lms_logins }}" required></div>
+                <div><label>Engagement %</label><input type="number" name="engagement" min="0" max="100" value="{{ student.engagement }}" required></div>
+                <div><label>Missed Tasks</label><input type="number" name="missed_tasks" min="0" max="10" value="{{ student.missed_tasks }}" required></div>
+                <div><label>Streak Days</label><input type="number" name="streak" min="0" max="365" value="{{ student.streak }}" required></div>
+                <div><label>Daily Goal Done</label><input type="number" name="daily_goal_done" min="0" max="4" value="{{ student.daily_goal_done }}" required></div>
+                <div><label>Weekly Goal Done</label><input type="number" name="weekly_goal_done" min="0" max="12" value="{{ student.weekly_goal_done }}" required></div>
+            </div>
+            <button type="submit">Save Changes</button>
+        </div>
+    </form>
+</body>
+</html>

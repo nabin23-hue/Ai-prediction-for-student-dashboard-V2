@@ -1,0 +1,29 @@
+Presentation Decision Script
+
+Opening:
+Our project is an AI-Based Student Productivity and Performance Prediction System. The goal is to identify at-risk students early and provide useful recommendations to both students and teachers.
+
+Problem:
+Many students show warning signs before they fail, such as low attendance, missed tasks, low LMS activity and poor engagement. Traditional systems usually react after grades drop. Our system aims to support early intervention.
+
+Design:
+The system has three main users: admin, teacher and student. Admins manage student records, teachers monitor class risk and intervention actions, and students view their own productivity, risk level, goals and recommendations.
+
+Random Forest Upgrade:
+Originally, the prototype used a transparent scoring method. To better match our AI promise, we upgraded the system to use Random Forest machine learning models. Random Forest predicts risk level, expected grade, productivity score and pass probability using seven indicators: attendance, study hours, assignment completion, quiz result, LMS logins, engagement and missed tasks.
+
+Demo Flow:
+1. Login as admin and show student management.
+2. Login as teacher and show class risk monitoring.
+3. Open the combined demo dashboard to show teacher and student sides together.
+4. Open the model evidence page to show Random Forest accuracy, training rows and feature importance.
+5. Login as a student and update indicators to show prediction changes.
+
+Dataset Explanation:
+For this prototype, the Random Forest model is trained using synthetic education data generated from realistic academic indicators. This protects student privacy and allows us to demonstrate the ML workflow. In future work, we recommend replacing the synthetic data with UCI Student Performance Dataset, OULAD, or real de-identified institutional data.
+
+Ethics:
+The system should be used as a support tool, not as punishment. Students should see explanations and recommendations. Teachers should use predictions as guidance and combine them with human judgement.
+
+Conclusion:
+The project demonstrates the full ITS320 lifecycle: problem analysis, design, implementation, Random Forest ML upgrade, testing, documentation, ethical reflection and presentation.

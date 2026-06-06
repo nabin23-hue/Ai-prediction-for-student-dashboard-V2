@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Privacy and Security</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Privacy & Security</h1>
+        <p>Ethical use of student data and role-based access</p>
+    </div>
+
+    <div class="nav">
+        <a href="/">Login</a>
+        <a href="/admin">Admin</a>
+        <a href="/teacher">Teacher</a>
+        <a href="/tutorial">Tutorial</a>
+    </div>
+
+    <div class="card">
+        <h2>Privacy Notice</h2>
+        <p>Student data in this prototype is used only for academic support, early intervention, and performance improvement.</p>
+    </div>
+
+    <div class="card">
+        <h2>Ethical AI Use</h2>
+        <p>Prediction results should not be used to punish students. They should be used to provide support, reminders, and teacher guidance.</p>
+    </div>
+
+    <div class="card">
+        <h2>Security Considerations</h2>
+        <ul>
+            <li>Admin can manage users and records.</li>
+            <li>Teachers can monitor class performance and support at-risk students.</li>
+            <li>Students should only access their own academic progress.</li>
+            <li>Real passwords should be hashed in a production system.</li>
+            <li>Real private student data should not be used in this demo.</li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>How to Use</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="top-bar">
+        <h1>How to Use the System</h1>
+        <p>Simple tutorial for admin, teacher, and student users</p>
+    </div>
+
+    <div class="nav">
+        <a href="/">Login</a>
+        <a href="/admin">Admin</a>
+        <a href="/teacher">Teacher</a>
+        <a href="/privacy">Privacy</a>
+    </div>
+
+    <div class="card">
+        <h2>Admin Steps</h2>
+        <ol>
+            <li>Login using admin / 123.</li>
+            <li>View all students, teachers, risk levels, and system summary cards.</li>
+            <li>Add, edit, delete, view, and download student reports.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h2>Teacher Steps</h2>
+        <ol>
+            <li>Login using teacher / 123.</li>
+            <li>View class summary, risk distribution, and student monitoring table.</li>
+            <li>Filter high-risk students and open the student detail page.</li>
+            <li>Use teacher intervention actions to support students early.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h2>Student Steps</h2>
+        <ol>
+            <li>Login using laxman / 123, nabin / 123, or nishan / 123.</li>
+            <li>View productivity score, risk level, expected grade, and pass probability.</li>
+            <li>Check streaks, goals, badges, weekly chart, and AI recommendations.</li>
+            <li>Update details and click Predict Performance.</li>
+        </ol>
+    </div>
+</body>
+</html>

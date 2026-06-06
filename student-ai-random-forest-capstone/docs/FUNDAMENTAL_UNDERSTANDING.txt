@@ -1,0 +1,42 @@
+Fundamental Understanding for ITS320 Presentation
+
+1. What the course wants to see
+ITS320 is not only about making an app. It is a capstone unit, so students must show the full project lifecycle:
+- Problem identification
+- Requirements analysis
+- System design
+- Implementation
+- Testing and troubleshooting
+- Documentation
+- Ethical and professional awareness
+- Teamwork and communication
+- Final presentation and demonstration
+
+2. What this project solves
+The project solves the problem that students may show warning signs before final failure. These warning signs include low attendance, low study hours, missed assignments, low LMS activity, weak quiz results and poor engagement.
+
+3. What the system does
+The system collects student indicators and uses a Random Forest ML model to predict risk level, expected grade, productivity score and pass probability. It then gives student recommendations and teacher intervention actions.
+
+4. Why Random Forest suits this project
+Random Forest is suitable because:
+- It works well with tabular student data.
+- It can handle several indicators at once.
+- It is stronger than one simple decision tree.
+- It can provide feature importance.
+- It is easier to explain than deep learning for a capstone prototype.
+
+5. What students should demonstrate
+During the demo, show that you understand:
+- What data enters the system.
+- How the Random Forest model uses the data.
+- What output the system produces.
+- How teachers and students use the output.
+- What ethical/security limitations still exist.
+- What future improvements are required.
+
+6. What to say if asked about dataset
+Say: "The current prototype uses synthetic education data so we can demonstrate the ML workflow safely without using private student information. For future validation, we recommend replacing it with a real de-identified dataset such as UCI Student Performance Dataset or OULAD."
+
+7. What to say if asked if this is real AI
+Say: "Yes, the upgraded version uses Random Forest models from scikit-learn. However, because this is a capstone prototype, the training data is synthetic. The system demonstrates the machine learning workflow and can be connected to real datasets in future work."

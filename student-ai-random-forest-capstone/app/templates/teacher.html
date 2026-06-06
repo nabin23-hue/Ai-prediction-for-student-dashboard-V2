@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Teacher Dashboard</h1>
+        <p>Class analytics, risk filtering, intervention actions, and student drill-down</p>
+    </div>
+
+    <div class="nav">
+        <a href="/teacher">Teacher</a>
+        <a href="/admin">Admin View</a>
+        <a href="/tutorial">Tutorial</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/download_class_report">Download Class Report</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="grid">
+        <div class="card"><h2>Total Students</h2><p class="big-number">{{ total_students }}</p></div>
+        <div class="card"><h2>Average Attendance</h2><p class="big-number">{{ avg_attendance }}%</p></div>
+        <div class="card"><h2>High Risk Students</h2><p class="big-number danger">{{ high_risk }}</p></div>
+        <div class="card"><h2>Class Average Score</h2><p class="big-number">{{ avg_score }}%</p></div>
+    </div>
+
+    <div class="card">
+        <h2>Search / Filter Students</h2>
+        <label>Search by student name</label>
+        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search student name...">
+
+        <label>Filter by risk level</label>
+        <select id="riskFilter" onchange="filterTable()">
+            <option value="All">All Students</option>
+            <option value="High">High Risk</option>
+            <option value="Medium">Medium Risk</option>
+            <option value="Low">Low Risk</option>
+        </select>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <h2>Risk Distribution</h2>
+            <p>High Risk: {{ high_risk }}</p>
+            <div class="bar-bg"><div class="bar-fill danger-bar" style="width: {{ high_risk * 33 }}%;"></div></div>
+            <p>Medium Risk: {{ medium_risk }}</p>
+            <div class="bar-bg"><div class="bar-fill medium-bar" style="width: {{ medium_risk * 33 }}%;"></div></div>
+            <p>Low Risk: {{ low_risk }}</p>
+            <div class="bar-bg"><div class="bar-fill low-bar" style="width: {{ low_risk * 33 }}%;"></div></div>
+        </div>
+
+        <div class="card chart-box">
+            <h2>Class Performance Chart</h2>
+            <canvas id="teacherChart"></canvas>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Student Monitoring Table</h2>
+        <table id="studentTable">
+            <tr>
+                <th>Name</th>
+                <th>Student ID</th>
+                <th>Attendance</th>
+                <th>Productivity</th>
+                <th>Risk</th>
+                <th>Grade</th>
+                <th>Pass</th>
+                <th>Teacher Action</th>
+                <th>Options</th>
+            </tr>
+            {% for s in students %}
+            <tr>
+                <td>{{ s.name }}</td>
+                <td>{{ s.student_id }}</td>
+                <td>{{ s.attendance }}%</td>
+                <td>{{ s.productivity }}%</td>
+                <td class="risk {{ s.risk|lower }}">{{ s.risk }}</td>
+                <td>{{ s.expected_grade }}</td>
+                <td>{{ s.pass_probability }}%</td>
+                <td>{{ s.teacher_action }}</td>
+                <td>
+                    <a class="small-btn" href="/teacher/student/{{ s.username }}">View Details</a>
+                    <a class="small-btn" href="/download_report/{{ s.username }}">Report</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="card alert">
+        <h2>Teacher Intervention Alert</h2>
+        <p>Students with low attendance, low quiz scores, low engagement, or pending assignments should receive early academic support.</p>
+    </div>
+
+    <script>
+        const chartData = {{ chart|tojson }};
+        new Chart(document.getElementById('teacherChart'), {
+            type: 'bar',
+            data: {
+                labels: chartData.labels,
+                datasets: [
+                    { label: 'Attendance', data: chartData.attendance },
+                    { label: 'Productivity', data: chartData.productivity },
+                    { label: 'Engagement', data: chartData.engagement }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        function filterTable() {
+            let searchInput = document.getElementById("searchInput").value.toLowerCase();
+            let riskFilter = document.getElementById("riskFilter").value;
+            let table = document.getElementById("studentTable");
+            let rows = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < rows.length; i++) {
+                let name = rows[i].getElementsByTagName("td")[0].innerText.toLowerCase();
+                let risk = rows[i].getElementsByTagName("td")[4].innerText;
+                let nameMatch = name.includes(searchInput);
+                let riskMatch = riskFilter === "All" || risk === riskFilter;
+                rows[i].style.display = (nameMatch && riskMatch) ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>

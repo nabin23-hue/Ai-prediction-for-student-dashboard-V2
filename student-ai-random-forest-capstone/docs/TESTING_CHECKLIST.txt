@@ -1,0 +1,35 @@
+Testing Checklist
+
+Functional Tests
+[ ] Login as admin using admin / 123
+[ ] Login as teacher using teacher / 123
+[ ] Login as student using laxman / 123
+[ ] Admin can add student
+[ ] Admin can edit student
+[ ] Admin can delete student
+[ ] Teacher dashboard shows class summary
+[ ] Teacher can open student details
+[ ] Student dashboard shows productivity, risk, expected grade and recommendations
+[ ] Student can update indicators and receive new prediction
+[ ] Download individual report works
+[ ] Download class CSV report works
+[ ] /demo combined dashboard opens
+[ ] /model Random Forest evidence page opens
+
+ML Tests
+[ ] Random Forest model trains when app starts
+[ ] Risk accuracy appears on /model page
+[ ] Feature importance appears on /model page
+[ ] Prediction changes when input indicators change
+
+Presentation Tests
+[ ] Combined demo dashboard fits on screen
+[ ] Student and teacher sides are visible together
+[ ] Model evidence page is easy to explain
+[ ] Screenshots are prepared for final slides
+
+Ethics/Security Notes
+[ ] Explain that password 123 is only for prototype
+[ ] Explain that production version needs hashed passwords and secure sessions
+[ ] Explain that synthetic data is used for privacy-safe ML demonstration
+[ ] Explain that prediction supports teacher judgement, not punishment

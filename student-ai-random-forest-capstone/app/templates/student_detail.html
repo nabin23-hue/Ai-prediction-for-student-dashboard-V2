@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Detail</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Teacher Drill-Down: {{ student.name }}</h1>
+        <p>Detailed student risk explanation, progress trend, and intervention plan</p>
+    </div>
+
+    <div class="nav">
+        <a href="/teacher">Back to Teacher</a>
+        <a href="/admin">Admin</a>
+        <a href="/student/{{ student.username }}">Student View</a>
+        <a href="/download_report/{{ student.username }}">Download Report</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="grid">
+        <div class="card profile-card">
+            <div class="avatar">👨‍🎓</div>
+            <h2>{{ student.name }}</h2>
+            <p><b>ID:</b> {{ student.student_id }}</p>
+            <p><b>Course:</b> {{ student.course }}</p>
+        </div>
+        <div class="card"><h2>Risk</h2><p class="risk {{ student.risk|lower }}">{{ student.risk }}</p></div>
+        <div class="card"><h2>Productivity</h2><p class="big-number">{{ student.productivity }}%</p></div>
+        <div class="card"><h2>Expected Grade</h2><p class="big-number">{{ student.expected_grade }}</p><p>Pass: {{ student.pass_probability }}%</p></div>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <h2>Risk Reason</h2>
+            <p>{{ student.reason }}</p>
+            <h2>AI Recommendation</h2>
+            <p>{{ student.recommendation }}</p>
+        </div>
+        <div class="card alert">
+            <h2>Teacher Intervention Action</h2>
+            <p>{{ student.teacher_action }}</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Detailed Data</h2>
+        <table>
+            <tr><th>Indicator</th><th>Value</th></tr>
+            <tr><td>Attendance</td><td>{{ student.attendance }}%</td></tr>
+            <tr><td>Study Hours</td><td>{{ student.study_hours }} per day</td></tr>
+            <tr><td>Assignments</td><td>{{ student.assignments }}/5</td></tr>
+            <tr><td>Quiz Score</td><td>{{ student.quiz }}%</td></tr>
+            <tr><td>LMS Logins</td><td>{{ student.lms_logins }} per week</td></tr>
+            <tr><td>Engagement</td><td>{{ student.engagement }}%</td></tr>
+            <tr><td>Missed Tasks</td><td>{{ student.missed_tasks }}</td></tr>
+            <tr><td>Learning Streak</td><td>{{ student.streak }} days</td></tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Student Badges</h2>
+        {% for badge in badges %}
+            <span class="badge">🏅 {{ badge }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="card chart-box">
+        <h2>Weekly Progress Trend</h2>
+        <canvas id="detailChart"></canvas>
+    </div>
+
+    <script>
+        const chartData = {{ chart|tojson }};
+        new Chart(document.getElementById('detailChart'), {
+            type: 'line',
+            data: {
+                labels: chartData.labels,
+                datasets: [
+                    { label: 'Attendance', data: chartData.attendance },
+                    { label: 'Assignments', data: chartData.assignments },
+                    { label: 'Study Hours', data: chartData.study },
+                    { label: 'Engagement', data: chartData.engagement }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    </script>
+</body>
+</html>

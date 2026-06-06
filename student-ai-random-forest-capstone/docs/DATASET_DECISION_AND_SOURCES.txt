@@ -1,0 +1,26 @@
+Dataset Decision and Sources
+
+Best decision for this project:
+Use synthetic data for prototype demonstration and recommend UCI/OULAD for future validation.
+
+Why synthetic data is acceptable for prototype:
+- The capstone app needs to demonstrate design, implementation, testing and project understanding.
+- Real student data is sensitive and requires permission, privacy controls and de-identification.
+- Synthetic data allows safe demonstration of machine learning workflow.
+
+Limitations of synthetic data:
+- It does not prove real-world prediction accuracy.
+- It should not be presented as real institutional data.
+- It is suitable for demonstration, not final production validation.
+
+Best public dataset for future work:
+1. UCI Student Performance Dataset
+   Good for: grade prediction and student performance modelling.
+   Why recommended: simple, recognised and directly related to student performance.
+
+2. Open University Learning Analytics Dataset (OULAD)
+   Good for: LMS activity, online learning behaviour and engagement prediction.
+   Why recommended: stronger match with LMS logins and online learning analytics.
+
+Recommended presentation wording:
+"For this version, we use synthetic data to demonstrate Random Forest prediction safely. For future work, the system can be retrained and validated using UCI Student Performance Dataset, OULAD, or real de-identified institutional data after ethical approval."

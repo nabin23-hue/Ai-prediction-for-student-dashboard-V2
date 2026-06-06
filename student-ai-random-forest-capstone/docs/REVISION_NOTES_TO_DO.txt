@@ -1,0 +1,37 @@
+High Priority Revisions Completed / To Check
+
+COMPLETED IN THIS PACKAGE
+1. Random Forest ML upgrade added in app.py.
+2. scikit-learn added to requirements.txt.
+3. New /model page added for ML evidence.
+4. New /demo page added to show student and teacher sides together.
+5. Combined dashboard supports presentation flow.
+6. Prediction output now uses Random Forest model predictions.
+7. Feature importance is displayed for explainability.
+8. Documentation added for presentation and dataset explanation.
+
+CHECK BEFORE SUBMISSION
+1. Run the app locally.
+2. Confirm /model opens.
+3. Confirm /demo opens.
+4. Confirm /teacher opens.
+5. Confirm /student/laxman opens.
+6. Change student inputs and confirm risk/prediction updates.
+7. Take screenshots for final report or presentation.
+8. Do not claim the model is trained on real institutional data.
+9. Say clearly: synthetic dataset is used for prototype, real dataset is future validation.
+10. Explain why Random Forest was selected.
+
+OPTIONAL IMPROVEMENT IF TIME
+1. Add a small chart for feature importance.
+2. Add UCI/OULAD dataset link in final report references.
+3. Add screenshots of /demo and /model pages to final presentation.
+4. Add one slide called "Random Forest ML Upgrade".
+5. Add one slide called "Dataset and Ethical Use".
+
+DO NOT DO NOW
+1. Do not rebuild the whole app.
+2. Do not add too many models.
+3. Do not remove the existing dashboards.
+4. Do not use private student data.
+5. Do not overclaim production readiness.

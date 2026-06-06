@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Forest Model Evidence</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="navbar">
+    <h2>Random Forest ML Evidence</h2>
+    <a href="{{ url_for('teacher') }}">Teacher Dashboard</a>
+    <a href="{{ url_for('demo') }}">Demo Dashboard</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</nav>
+<main class="container">
+    <section class="card hero-card">
+        <h1>Random Forest Prediction Model</h1>
+        <p>This prototype now uses Random Forest models to predict student risk, expected grade, productivity score and pass probability from attendance, study hours, assignments, quiz score, LMS logins, engagement and missed tasks.</p>
+    </section>
+
+    <section class="grid cards-4">
+        <div class="card"><h3>Training Rows</h3><p class="big-number">{{ evidence.training_rows }}</p></div>
+        <div class="card"><h3>Risk Accuracy</h3><p class="big-number">{{ evidence.risk_accuracy }}%</p></div>
+        <div class="card"><h3>Grade Accuracy</h3><p class="big-number">{{ evidence.grade_accuracy }}%</p></div>
+        <div class="card"><h3>Productivity MAE</h3><p class="big-number">{{ evidence.productivity_mae }}</p></div>
+    </section>
+
+    <section class="card">
+        <h2>Feature Importance</h2>
+        <table>
+            <tr><th>Feature</th><th>Importance</th></tr>
+            {% for name, value in importance %}
+            <tr><td>{{ name.replace('_', ' ').title() }}</td><td>{{ '%.3f'|format(value) }}</td></tr>
+            {% endfor %}
+        </table>
+        <p class="note">For the capstone prototype, the model is trained on synthetic education data generated from realistic student indicators. Future work can replace this with UCI Student Performance or OULAD data.</p>
+    </section>
+</main>
+</body>
+</html>

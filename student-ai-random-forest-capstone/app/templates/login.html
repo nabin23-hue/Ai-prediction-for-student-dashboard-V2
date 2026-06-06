@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Student AI System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="top-bar">
+        <h1>AI-Based Student Productivity and Performance Prediction System</h1>
+        <p>Capstone Prototype with Admin, Teacher, and Student Login</p>
+    </div>
+
+    <div class="card login-card">
+        <h2>Login Portal</h2>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <p class="small-text"><b>Admin:</b> admin / 123</p>
+        <p class="small-text"><b>Teacher:</b> teacher / 123</p>
+        <p class="small-text"><b>Students:</b> laxman / 123, nabin / 123, nishan / 123</p>
+
+        <form method="post" action="/login">
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div class="nav">
+        <a href="/tutorial">How to Use</a>
+        <a href="/privacy">Privacy & Security</a>
+    </div>
+</body>
+</html>
